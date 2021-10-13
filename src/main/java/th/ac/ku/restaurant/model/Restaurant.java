@@ -1,18 +1,19 @@
 package th.ac.ku.restaurant.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(columnDefinition = "CHAR(36)")
+    private UUID id;;
 
     private String name;
     private String address;
@@ -23,13 +24,6 @@ public class Restaurant {
 //    @JsonProperty("abc")
 //    private int priceRange;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -51,6 +45,10 @@ public class Restaurant {
         return phone;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -63,7 +61,10 @@ public class Restaurant {
         this.numSeats = numSeats;
     }
 
-//    public int getPriceRange() {
+    public void setId(UUID id) {
+        this.id = id;
+    }
+    //    public int getPriceRange() {
 //        return priceRange;
 //    }
 //

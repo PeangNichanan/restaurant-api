@@ -7,6 +7,7 @@ import th.ac.ku.restaurant.model.Restaurant;
 import th.ac.ku.restaurant.service.RestaurantService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/restaurant")
@@ -27,21 +28,20 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public Restaurant getRestaurant(@PathVariable int id) {
+    public Restaurant getRestaurant(@PathVariable UUID id) {
         return service.getRestaurant(id);
     }
 
-    //PUT => update data
     @PutMapping("/{id}")
-    public Restaurant update(@PathVariable int id, @RequestBody Restaurant restaurant) {
+    public Restaurant update(@PathVariable UUID id, @RequestBody Restaurant restaurant) {
         return service.update(id, restaurant);
     }
 
-    //DELETE record
     @DeleteMapping("/{id}")
-    public Restaurant delete(@PathVariable int id) {
+    public Restaurant delete(@PathVariable UUID id) {
         return service.delete(id);
     }
+
 
 
 

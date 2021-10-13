@@ -7,6 +7,7 @@ import th.ac.ku.restaurant.model.Restaurant;
 import th.ac.ku.restaurant.repository.RestaurantRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RestaurantService {
@@ -23,48 +24,34 @@ public class RestaurantService {
         return restaurant;
     }
 
-    //wrapper => Get by id
-    public Restaurant getRestaurant(int id) {
+    public Restaurant getRestaurant(UUID id) {
         return repository.findById(id).get();
     }
 
-    //PUT => Update record
-    public Restaurant update(int id, Restaurant requestBody) {
-        //Get record
+    public Restaurant update(UUID id, Restaurant requestBody) {
         Restaurant record = repository.findById(id).get();
-
-        //set record in each attribute
-        //we can make if-else or check in model
-        if (requestBody.getName() != null) {
+        if (requestBody.getName() != null)
             record.setName(requestBody.getName());
-        }
-        if (requestBody.getAddress() != null) {
+
+        if (requestBody.getAddress() != null)
             record.setAddress(requestBody.getAddress());
-        }
-        if (requestBody.getPhone() != null) {
+
+        if (requestBody.getPhone() != null)
             record.setPhone(requestBody.getPhone());
-        }
-        if (requestBody.getNumSeats() > 0) {
+
+        if (requestBody.getNumSeats() > 0)
             record.setNumSeats(requestBody.getNumSeats());
-        }
 
-        //update
-        repository.save(record);
-        //repository.saveAndFlush(record);//save into disk
+        Restaurant r = repository.save(record);
 
-        //verify only => Don't have to return
-        return record;
+        return r;
     }
 
-
-    public Restaurant delete(int id) {
+    public Restaurant delete(UUID id) {
         Restaurant record = repository.findById(id).get();
         repository.deleteById(id);
         return record;
     }
-
-
-
-
 }
+
 
